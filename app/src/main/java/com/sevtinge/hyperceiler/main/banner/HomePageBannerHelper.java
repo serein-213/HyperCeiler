@@ -103,26 +103,6 @@ public class HomePageBannerHelper {
     }
 
     private void checkWarnings(Context context, PreferenceCategory preference) {
-        boolean isFullSupport = isFullSupport();
-        boolean isWhileXposed = isWhileXposed();
-        boolean isSignPass = SignUtils.isSignCheckPass(context);
-
-        // 不再展示“非官方 ROM”提示，仅基于签名、Xposed 与系统适配展示警告
-        if (!isSignPass || !isFullSupport || !isWhileXposed) {
-            LayoutPreference layoutPreference = (LayoutPreference) createBannerPreference(
-                context,
-                R.layout.headtip_warn
-            );
-            TextView titleView = layoutPreference.findViewById(android.R.id.title);
-            if (!isSignPass) {
-                titleView.setText(R.string.headtip_warn_sign_verification_failed);
-            } else if (!isWhileXposed) {
-                titleView.setText(R.string.headtip_warn_unsupport_xposed);
-            } else if (!isFullSupport) {
-                titleView.setText(R.string.headtip_warn_unsupport_sysver);
-            }
-            preference.addPreference(layoutPreference);
-        }
     }
 
     private boolean isWhileXposed() {
